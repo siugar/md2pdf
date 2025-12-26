@@ -1,0 +1,26 @@
+% LaTeX header for Pandoc PDF output
+% 專門調整表格與中文字型相關的排版
+
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{booktabs}
+
+% 調整欄位左右留白（適度減少，避免過寬擠壓內容）
+\setlength{\tabcolsep}{6pt}
+
+% 調整列高，讓每列有一點額外上下空間
+\renewcommand{\arraystretch}{1.25}
+
+% 大型表格（例如 API 規格）整體字體略縮小，減少欄位互相重疊的機會
+\usepackage{etoolbox}
+
+% 一般 tabular 表格：字體略小，外面加一個完整外框，讓小表格更明顯
+\AtBeginEnvironment{tabular}{%
+  \small%
+  \setlength{\fboxsep}{0pt}%
+  \fbox\bgroup%
+}
+\AtEndEnvironment{tabular}{\egroup}
+
+% longtable（通常是大表格）僅調整字體大小，不額外加外框，避免破壞跨頁排版
+\AtBeginEnvironment{longtable}{\small}
